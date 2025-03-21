@@ -1,0 +1,1075 @@
+001 - Entendido! Agradeço pela sua paciência e por apontar que as atualizações no meio do caminho causaram confusão. Vamos recomeçar do início, consolidando todas as informações em um relatório geral atualizado com os endereços de pastas corrigidos e, em seguida, farei um novo planejamento com base nas correções que já fizemos. Não vou incluir código neste momento, conforme solicitado, para que você tenha tempo de revisar e organizar as informações. Depois disso, podemos retomar a implementação dos códigos com calma.
+
+Relatório Geral Atualizado
+
+Abaixo está o relatório geral consolidado, com todas as informações do escopo e as correções de endereços de pastas aplicadas. Ele reflete todas as atualizações e ajustes que fizemos ao longo da nossa colaboração.
+
+Documento de Escopo do Novo Editor de Texto (Atualizado)
+
+1. Informações Iniciais
+
+Ambiente de Desenvolvimento: O projeto está sendo desenvolvido no Qt Creator com programação em Python.
+
+Contexto Geral: O editor de textos faz parte de um projeto maior, chamado Runner_v5, que é um gerenciador e editor de assets para jogos de cassino. O objetivo geral é gerenciar e manipular assets de forma eficiente.
+
+Função do Editor de Texto: O editor que estamos desenvolvendo é responsável pelas tabelas de help/paytable dos jogos de cassino. Ele trabalha com texto e imagens para produzir as telas de help.
+
+2. Contexto Geral
+
+Outras Partes do Sistema:
+
+O editor geral será um organizador visual dos assets dos jogos de cassino e incluirá outras funcionalidades, como:
+
+Manipulação de assets para criação dos símbolos dos jogos.
+
+Suporte para criação de áudio.
+
+Edição de imagens via manipuladores externos (como o ImageMagick).
+
+Possível conexão com um sistema de IA para animar os jogos.
+
+Conexão com o Editor de Telas de Help/Paytable:
+
+O editor de telas de help/paytable se conectará ao sistema maior para chamar automaticamente o primeiro frame da animação de cada um dos símbolos do jogo e usá-lo para criar a tabela de pagamentos.
+
+Essa conexão deve ser automatizada, para que o usuário não precise procurar os assets manualmente.
+
+Exportação das Telas de Help/Paytable:
+
+As telas de help/paytable serão exportadas no formato .PNG e .JPEG para uso final no jogo.
+
+As telas devem ser dimensionáveis para se adaptar a monitores verticais e horizontais.
+
+3. Sobre as Tabelas de Help/Paytable
+
+Definição:
+
+Apesar de o editor se chamar "Help Editor", ele é focado na produção das telas de pagamento (paytables), que contêm:
+
+Valores de pagamento de cada símbolo do jogo.
+
+Features e bônus.
+
+Padrões de pagamento.
+
+Regras gerais do jogo.
+
+A função do editor é prover recursos para a produção dessas telas de forma rápida e robusta.
+
+Estrutura das Telas:
+
+Os elementos (textos e imagens) não seguem uma estrutura fixa.
+
+Os elementos podem ser movidos livremente pela tela usando o ambiente QGraphicsView.
+
+Elementos Predefinidos:
+
+As mini-templates são os únicos elementos com alguma pré-definição (detalhes abaixo).
+
+Funcionalidades do Editor:
+
+O editor precisa suportar textos com formatações e ajustes gerais:
+
+Formatações:
+
+Negrito, itálico, sublinhado.
+
+Normal: Remove todas as formatações do texto (negrito, itálico, sublinhado).
+
+Alinhamentos: Esquerda, centro, direita, justificado.
+
+Cor: Os textos devem poder receber cor.
+
+Fonte: Os textos devem poder receber diferentes tamanhos e tipos de fontes.
+
+Formatação Mista: O texto precisa suportar formatação mista (por exemplo, uma parte do texto em negrito e outra não, dentro do mesmo item de texto).
+
+Ajustes Adicionais:
+
+Espaçamento entre Linhas:
+
+Um componente QHorizontalSlider será usado para ajustar o espaçamento entre linhas dos textos.
+
+O ajuste será aplicado apenas aos textos selecionados.
+
+Espaçamento entre Caracteres: Não é necessário.
+
+Efeitos Visuais:
+
+Sombras: Não serão implementados nesta primeira etapa.
+
+Contornos: Não serão implementados nesta primeira etapa.
+
+O editor deve permitir carregar imagens para ilustrar as telas.
+
+No Qt Creator, o componente QGraphicsView é usado para criar uma tela com layers (similar ao Photoshop), permitindo mover textos e imagens para qualquer parte da tela.
+
+Dimensões da Área de Trabalho:
+
+A área de trabalho (QGraphicsView, nomeado graphicsView1) tem o tamanho 1350 x 732 pixels, mas representa uma tela Full HD no mundo real (1920 x 1080 pixels).
+
+4. Sobre o Trabalho com Imagens
+
+Uso das Imagens:
+
+As imagens podem ser adicionadas à tela, onde serão movidas e posicionadas.
+
+Mini-Template Editável para Símbolos:
+
+Cada mini-template contém:
+
+Uma imagem (o primeiro frame da animação de um símbolo, carregado automaticamente).
+
+Um pequeno texto abaixo da imagem mostrando os valores desse símbolo.
+
+A mini-template é criada automaticamente ao pressionar um botão específico.
+
+Funcionalidades com Imagens:
+
+O editor precisa suportar apenas movimentação e redimensionamento das imagens na tela.
+
+Essas funcionalidades serão implementadas usando os recursos do componente QGraphicsView do Qt Creator, que é descrito como robusto e flexível.
+
+Detalhes da Mini-Template (ThumbTemplate e ThumbPrize):
+
+Tipos de Elementos:
+
+ThumbTemplate: Componente matriz onde o design inicial é definido.
+
+ThumbPrize: Cópias do ThumbTemplate, criadas ao clicar em outro botão, que representam cada símbolo na tabela de pagamentos.
+
+Propriedades do ThumbTemplate:
+
+Imagem:
+
+A imagem aparece com um tamanho padrão (default) dentro do ThumbTemplate.
+
+O ThumbTemplate é escalonável, e a imagem deve acompanhar a escala.
+
+Texto:
+
+O texto dentro do ThumbTemplate é editável, permitindo alterar os valores dos símbolos.
+
+O texto deve aumentar a fonte proporcionalmente ao escalonamento do ThumbTemplate.
+
+O usuário poderá editar manualmente o tamanho da fonte do texto dentro do ThumbTemplate/ThumbPrize após o escalonamento.
+
+Container do ThumbTemplate:
+
+Pode receber uma borda.
+
+A borda pode ter cor.
+
+O fundo (background) do container pode ter cor.
+
+A borda pode ter espessura ajustável.
+
+Aplicação das Propriedades:
+
+As propriedades do container (borda, cor da borda, cor de fundo, espessura da borda) serão aplicadas globalmente a todos os ThumbTemplates e suas cópias (ThumbPrizes).
+
+Criação dos ThumbPrizes:
+
+Haverá três botões para criar os `ThumbPrizes**:
+
+Botão 1 (pushButton25): Cria de uma vez os ThumbPrizes para os símbolos de p02 a p14 (p01 já é o primeiro ThumbTemplate).
+
+Botão 2 (pushButton27): Cria de uma vez os ThumbPrizes para os símbolos de p02 a p08 (p01 já é o primeiro ThumbTemplate).
+
+Botão 3 (pushButton28): Cria de uma vez os ThumbPrizes para os símbolos de p09 a p14.
+
+Comportamento ao Criar ThumbPrizes:
+
+Os ThumbPrizes já criados não devem ser recriados.
+
+Se um ThumbPrize for deletado (por exemplo, p04 de um grupo p02-p08), a próxima vez que o botão correspondente for clicado, o sistema deve recriar apenas o item deletado (p04).
+
+Os ThumbPrizes devem ser criados na página ativa (tab atual).
+
+Remoção de ThumbPrizes:
+
+O pushButton26 remove todos os ThumbPrizes (grupos p02-p08 e p09-p14), mas não remove o ThumbTemplate original (p01), para permitir que o usuário ajuste o design.
+
+O usuário deleta qualquer objeto na tela (incluindo ThumbPrizes) selecionando o objeto e pressionando a tecla "DEL".
+
+Criação de ThumbPrizes para p15-p19:
+
+O pushButton31 cria de uma vez os ThumbPrizes para os símbolos de p15 a p19.
+
+O símbolo p19 é especial: quando adicionado à tela, aparece apenas a imagem, sem frame ou template de design.
+
+Carregamento das Imagens para o ThumbTemplate:
+
+O primeiro ThumbTemplate sempre carrega o primeiro frame da animação do primeiro símbolo (pasta p01).
+
+Cada novo ThumbPrize (cópia do ThumbTemplate) carrega a imagem do próximo folder na sequência (p01, p02, p03, p04, etc.).
+
+O sistema deve buscar a primeira imagem em ordem alfabética/numérica em cada pasta.
+
+Se o próximo folder na sequência não tiver uma "primeira imagem", o sistema pula para o próximo folder e continua buscando a "primeira imagem".
+
+Um ThumbTemplate ou ThumbPrize nunca será criado sem uma imagem. Folders sem a "primeira imagem" não serão representados nos ThumbPrizes.
+
+O path para o folder será o mesmo para a criação de todos os ThumbTemplates e ThumbPrizes.
+
+Sequência de Pastas:
+
+A sequência de pastas para os símbolos é fixa e definida como:
+
+python
+
+folder_sequence = [
+
+    os.path.join("p01", "anim"),
+
+    os.path.join("p02", "anim"),
+
+    os.path.join("p03", "anim"),
+
+    os.path.join("p04", "anim"),
+
+    os.path.join("p05", "anim"),
+
+    os.path.join("p06", "anim"),
+
+    os.path.join("p07", "anim"),
+
+    os.path.join("p08", "anim"),
+
+    os.path.join("p09_royal_a", "anim"),
+
+    os.path.join("p10_royal_k", "anim"),
+
+    os.path.join("p11_royal_q", "anim"),
+
+    os.path.join("p12_royal_j", "anim"),
+
+    os.path.join("p13_royal_10", "anim"),
+
+    os.path.join("p14_royal_9", "anim"),
+
+    os.path.join("p15", "anim"),
+
+    os.path.join("p16", "anim"),
+
+    os.path.join("p17", "anim"),
+
+    os.path.join("p18", "anim"),
+
+    os.path.join("p19", "anim"),
+
+    os.path.join("p20_extra1", "anim"),
+
+    os.path.join("p21_extra2", "anim")
+
+]
+
+O ThumbTemplate usa p01, e as duplicatas (ThumbPrizes) começam a partir de p02.
+
+O símbolo p19 é especial: quando adicionado à tela, aparece apenas a imagem, sem frame ou template de design.
+
+Caminho Base:
+
+O caminho base para as pastas de símbolos é:
+
+python
+
+base_dir = os.path.join("resources", "pj_00", "g00", "_master", "generative", "animations", "symbols")
+
+Carregamento Geral das Imagens:
+
+Um path específico será fornecido, e o código deve sempre buscar a primeira imagem de cada folder.
+
+Os paths serão específicos e definidos no código. O usuário não precisará procurar nada manualmente.
+
+Redimensionamento e Escalonamento:
+
+Os elementos de texto podem be redimensionados arrastando a borda direita.
+
+Os ThumbTemplates e ThumbPrizes podem be redimensionados arrastando as bordas.
+
+Escalonamento Simultâneo:
+
+Quando o usuário seleciona a lateral direita, o canto esquerdo inferior, ou a lateral inferior de um ThumbTemplate ou ThumbPrize e escala, todos os outros ThumbTemplates e `ThumbPrizes devem escalonar simultaneamente.
+
+Os demais componentes (textos e imagens fora dos ThumbTemplates/ThumbPrizes) não precisam be selecionados para essa manipulação simultânea.
+
+O código deve identificar a "família" dos ThumbTemplates e ThumbPrizes para aplicar a manipulação simultânea.
+
+O texto interno dos ThumbTemplates e ThumbPrizes não é afetado simultaneamente durante o escalonamento (cada ThumbTemplate/ThumbPrize mantém seu próprio texto).
+
+5. Sobre o QGraphicsView
+
+Uso de Layers:
+
+O componente QGraphicsView do Qt Creator naturalmente cria layers, mas não será necessário criar um manipulador de layers, pois a manipulação de imagens nas telas de help/paytable é mais simples.
+
+Redimensionamento de Imagens:
+
+O redimensionamento será feito com handles nos cantos das imagens, para um processo mais orgânico.
+
+Isso será implementado usando os recursos do QGraphicsView.
+
+Ordem de Sobreposição (Z-Order):
+
+O editor deve permitir ajustar a ordem de sobreposição dos elementos (textos, imagens, ThumbTemplates/ThumbPrizes).
+
+Serão criados dois botões:
+
+"Send to Back" (pushButton não especificado): Envia o elemento selecionado para o fundo (menor z-order).
+
+"Bring to Front" (pushButton não especificado): Traz o elemento selecionado para a frente (maior z-order).
+
+Réguas:
+
+O pushButton17 exibe ou oculta réguas na interface (alterna entre True/False).
+
+A régua será exibida no topo e na lateral esquerda da área de trabalho (graphicsView1).
+
+A régua deve ter a medida de 1920 x 1080 (representando a tela Full HD no mundo real), independente do tamanho da área de trabalho (1350 x 732 pixels).
+
+A régua deve permitir puxar linhas tracejadas a partir do topo ou da esquerda para qualquer parte da tela, para ajudar o usuário a alinhar componentes.
+
+As linhas tracejadas podem be removidas arrastando-as de volta para a régua.
+
+Snap ao Grid:
+
+O pushButton18 ativa ou desativa o snap ao grid (alinhamento automático ao grid).
+
+O tamanho da grade será fixo em 10x10 pixels.
+
+6. Sobre a Exportação e Dimensionamento
+
+Formatos de Tela:
+
+O editor suportará três formatos de tela:
+
+1920 x 1080 (horizontal).
+
+1080 x 1920 (vertical).
+
+1080 x 960 (quase quadrado).
+
+Páginas e Formatos:
+
+O Qt Creator disponibiliza tabs, e cada tab representará uma página de texto.
+
+O usuário poderá criar novas páginas (tabs) ou remover páginas existentes, usando os recursos nativos do Qt Creator para adicionar e remover tabs.
+
+Todas as páginas "nascem" no formato 1920x1080 (padrão).
+
+Ao clicar no botão de formato, a mesma página é redimensionada para o novo formato (1920x1080, 1080x1920, ou 1080x960), e os layouts salvos para aquele formato são reaplicados.
+
+Comportamento das Tabs:
+
+O Qt Creator cria tabs com nomes padrão como "tab01", "tab02", etc., que podem be renomeadas para "Pag01", "Pag02", etc., usando os recursos nativos do Qt Creator.
+
+Uma nova página (tab) será criada em branco, sem elementos.
+
+Dimensionamento e Layout:
+
+Durante a criação das telas, o usuário poderá redimensionar a tela usando um botão de "formato de tela".
+
+O usuário poderá relayoutar os elementos (textos, imagens, mini-templates) conforme sua conveniência.
+
+Os layouts (posições dos elementos) serão salvos para cada formato de tela (1920x1080, 1080x1920, 1080x960).
+
+Ao mudar o formato da tela (via botão), o editor deve resgatar o layout salvo para aquele formato e reaplicar as posições dos elementos.
+
+Exportação:
+
+O editor deve exportar todas as telas, mesmo que não estejam ativas (visíveis).
+
+Apenas as telas que receberam edição serão exportadas.
+
+Um botão "Hold" será usado para indicar que um formato recebeu edição e deve be exportado.
+
+O botão "Hold" é específico por formato, não por página.
+
+Haverá várias páginas em cada formato.
+
+Se o botão "Hold" for clicado para o formato 1920x1080, todas as páginas existentes nesse formato serão exportadas.
+
+As telas serão exportadas em PNG e JPEG.
+
+Formato de Exportação:
+
+Haverá um QComboBox (dropdown menu) com as opções de exportação:
+
+"PNG e JPEG" (exporta ambos os formatos).
+
+"PNG" (exporta apenas PNG).
+
+"JPEG" (exporta apenas JPEG).
+
+Nomeação dos Arquivos Exportados:
+
+Os arquivos seguirão o padrão pg_01.png ou pg_01.jpeg (por exemplo, pg_01.png, pg_02.jpeg, etc.).
+
+Cada formato será exportado para um folder diferente:
+
+PNG: Pasta helps_png.
+
+JPEG: Pasta helps_jpeg.
+
+7. Sobre o Suporte a Múltiplos Idiomas
+
+Funcionamento:
+
+O suporte a múltiplos idiomas deve funcionar como no sistema atual:
+
+O usuário troca o idioma em um seletor (um QComboBox, dropdown menu do Qt Creator, nomeado language_combo).
+
+Ao selecionar um idioma, todos os textos da tela (incluindo os textos dentro dos ThumbTemplates e ThumbPrizes) são atualizados automaticamente para o novo idioma, usando informações salvas em um JSON.
+
+Os textos dentro dos ThumbTemplates e ThumbPrizes também são atualizados automaticamente.
+
+Ao abrir o aplicativo, ele deve carregar o último idioma que estava ativo na tela.
+
+Traduções:
+
+Atualmente, as traduções são inseridas manualmente.
+
+Nova Solução: O editor deve incorporar uma API de IA para realizar traduções automáticas.
+
+Um stack de APIs será criado, permitindo selecionar serviços disponíveis no mercado:
+
+Default: Google Cloud Translation API.
+
+Outras Opções:
+
+Claude (Anthropic).
+
+QwenMAX 2.5 (Alibaba).
+
+DeepSeek.
+
+As traduções automáticas devem be salvas (em um JSON) para evitar retraduzir os mesmos textos várias vezes.
+
+Idiomas Suportados:
+
+O editor terá um stack geral com todos os idiomas disponíveis.
+
+Ao lado do stack de idiomas, haverá um botão "+" que, ao ser clicado, abrirá uma janela com 30 idiomas disponíveis:
+
+ENG - Inglês
+
+ESP - Espanhol
+
+POR - Português
+
+FRA - Francês
+
+DEU - Alemão
+
+ITA - Italiano
+
+RUS - Russo
+
+JPN - Japonês
+
+KOR - Coreano
+
+CHI - Chinês (Simplificado)
+
+ARA - Árabe
+
+NLD - Holandês
+
+SWE - Sueco
+
+TUR - Turco
+
+POL - Polonês
+
+GRE - Grego
+
+HUN - Húngaro
+
+CZE - Tcheco
+
+DAN - Dinamarquês
+
+FIN - Finlandês
+
+NOR - Norueguês
+
+THA - Tailandês
+
+HEB - Hebraico
+
+IND - Indonésio
+
+MAL - Malaio
+
+VIE - Vietnamita
+
+UKR - Ucraniano
+
+ROM - Romeno
+
+SLK - Eslovaco
+
+BUL - Búlgaro
+
+O usuário poderá selecionar os idiomas ativos para o stack de idiomas do projeto.
+
+A seleção será feita via um QComboBox (dropdown menu, nomeado language_combo), que mostrará os idiomas disponíveis.
+
+Ao selecionar um idioma no dropdown, todos os textos da tela serão atualizados com base nas traduções salvas no JSON.
+
+Inicialmente, os idiomas ativos serão:
+
+ENG (Inglês).
+
+ESP (Espanhol).
+
+POR (Português).
+
+O usuário poderá adicionar novos idiomas ao stack de idiomas ativos.
+
+8. Sobre o Comportamento Geral
+
+Salvamento Automático:
+
+Os objetos movidos ou editados na tela devem ter seus estados gravados automaticamente no JSON.
+
+Não haverá um botão "Save"; o salvamento será automático após cada alteração.
+
+Ações que Disparam o Salvamento Automático:
+
+Todas as ações devem be salvas, incluindo:
+
+Mover um texto ou imagem.
+
+Alterar formatações (negrito, itálico, sublinhado, cor, etc.).
+
+Criar ou editar um ThumbTemplate ou ThumbPrize.
+
+Mudar o formato da tela.
+
+Ativar/desativar as réguas (via pushButton17).
+
+Mudar o idioma (via language_combo).
+
+Qualquer outra edição na tela.
+
+Mudança de Idioma:
+
+A mudança de idioma (via language_combo) também deve be salva.
+
+Ao abrir o aplicativo, ele deve carregar o último idioma que estava ativo na tela.
+
+Estado das Réguas:
+
+O status das réguas (exibidas ou ocultas) deve be salvo e recuperado ao reiniciar o aplicativo.
+
+Undo/Redo:
+
+O editor não precisa suportar funcionalidades de "desfazer" (undo) ou "refazer" (redo).
+
+Duplicação:
+
+Os itens selecionados podem be duplicados pressionando Ctrl+D.
+
+A duplicação copia todas as características do componente original (posição, formatação, cor, alinhamento, etc.).
+
+Seleção Múltipla:
+
+O editor deve permitir seleção múltipla de itens, para manipular vários itens simultaneamente (por exemplo, mover, alinhar, ou aplicar formatações).
+
+JSON de Salvamento:
+
+Estados de Tela: Cada página terá seu próprio JSON para salvar o estado da tela (layouts, posições, formatações, etc.).
+
+Traduções: As traduções serão salvas em um JSON próprio.
+
+Textos: Todos os textos (incluindo traduções) serão salvos em um único JSON de textos.
+
+Nota sobre Traduções e IA:
+
+Para o sistema de IA traduzir, será mais interessante usar um único JSON para todos os textos, pois isso facilita o envio de múltiplos textos para a API de tradução de uma só vez.
+
+9. Sobre a Interface do Usuário
+
+Controles e Suas Funções:
+
+Grupo 1: Formatação de Texto:
+
+pushButton1: Abre um diálogo para escolher a cor do texto.
+
+pushButton2: Habilita o modo de edição de texto, permitindo adicionar novos elementos de texto na cena.
+
+pushButton3: Aplica negrito ao texto selecionado.
+
+pushButton4: Remove toda a formatação do texto selecionado (negrito, itálico, sublinhado).
+
+pushButton5: Aplica sublinhado ao texto selecionado.
+
+pushButton6: Aplica itálico ao texto selecionado.
+
+fontComboBox: Seletor de família da fonte.
+
+comboBox1: Seletor de tamanho da fonte.
+
+horizontalSlider (nome a definir): Ajusta o espaçamento entre linhas dos textos selecionados.
+
+Grupo 2: Alinhamento de Texto:
+
+pushButton10: Justifica o texto selecionado (distribui o texto uniformemente).
+
+pushButton11: Alinha o texto selecionado à esquerda.
+
+pushButton12: Alinha o texto selecionado ao centro.
+
+pushButton13: Alinha o texto selecionado à direita.
+
+Grupo 3: Frames e Bordas:
+
+pushButton14: Cria ou remove um frame ao redor de um item de texto selecionado (alterna entre True/False). O frame é criado por padrão com 1px de espessura.
+
+pushButton15: Aplica uma cor de fundo ao frame criado.
+
+pushButton16: Remove a cor de fundo do frame.
+
+pushButton23: Abre um seletor de cor para o contorno do frame.
+
+horizontalSlider1: Controla o arredondamento dos cantos do frame (0-100%).
+
+horizontalSlider2: Controla a espessura da linha do frame (1-10px).
+
+Grupo 4: Alinhamento de Objetos:
+
+pushButton7: Alinha dois ou mais objetos selecionados pela esquerda.
+
+pushButton8: Alinha dois ou mais objetos selecionados pelo centro.
+
+pushButton9: Alinha dois ou mais objetos selecionados pela direita.
+
+pushButton19: Alinha itens selecionados pela borda inferior.
+
+pushButton20: Alinha itens selecionados pela borda superior.
+
+pushButton21: Distribui horizontalmente os itens selecionados com espaçamento igual.
+
+pushButton22: Distribui verticalmente os itens selecionados com espaçamento igual.
+
+Grupo 5: Ferramentas de Ajuda Visual:
+
+pushButton17: Exibe ou oculta réguas na interface (alterna entre True/False).
+
+pushButton18: Ativa ou desativa o snap ao grid (alinhamento automático ao grid).
+
+pushButton29: Altera a cor de fundo da área de edição geral (graphicsView1).
+
+pushButton (nome a definir, "Send to Back"): Envia o elemento selecionado para o fundo (menor z-order).
+
+pushButton (nome a definir, "Bring to Front"): Traz o elemento selecionado para a frente (maior z-order).
+
+Grupo 6: Gerenciamento de Thumb Templates:
+
+pushButton24: Cria um novo ThumbTemplate.
+
+pushButton25: Cria de uma vez os ThumbPrizes para os símbolos de p02 a p14 (p01 já é o primeiro ThumbTemplate).
+
+pushButton26: Remove todos os ThumbPrizes (grupos p02-p08 e p09-p14).
+
+pushButton27: Cria de uma vez os ThumbPrizes para os símbolos de p02 a p08 (p01 já é o primeiro ThumbTemplate).
+
+pushButton28: Cria de uma vez os ThumbPrizes para os símbolos de p09 a p14.
+
+pushButton30: Recarrega as imagens dos ThumbTemplates e ThumbPrizes (atualização).
+
+pushButton31: Cria de uma vez os ThumbPrizes para os símbolos de p15 a p19.
+
+Grupo 7: Idiomas:
+
+language_combo: Seletor de idioma (ENG, ESP, POR).
+
+pushButton (nome a definir, "+"): Abre uma janela para adicionar novos idiomas ao stack de idiomas ativos.
+
+Grupo 8: Formatos e Exportação:
+
+pushButton (nome a definir, "Formato de Tela"): Permite alternar entre os formatos de tela (1920x1080, 1080x1920, 1080x960).
+
+pushButton (nome a definir, "Hold"): Marca um formato como editado para exportação.
+
+QComboBox (nome a definir): Seleciona o formato de exportação ("PNG e JPEG", "PNG", "JPEG").
+
+Funcionalidades Extras:
+
+Redimensionamento de Texto: Os elementos de texto podem be redimensionados arrastando a borda direita.
+
+Redimensionamento de ThumbTemplates: Os ThumbTemplates e ThumbPrizes podem be redimensionados arrastando as bordas.
+
+Duplicação via Ctrl+D: Os itens selecionados podem be duplicados pressionando Ctrl+D, copiando todas as características do componente original.
+
+Seleção Múltipla: Permite selecionar e manipular vários itens simultaneamente.
+
+Escalonamento Simultâneo:
+
+Quando o usuário seleciona a lateral direita, o canto esquerdo inferior, ou a lateral inferior de um ThumbTemplate ou ThumbPrize e escala, todos os outros ThumbTemplates e `ThumbPrizes devem escalonar simultaneamente.
+
+Os demais componentes (textos e imagens fora dos ThumbTemplates/ThumbPrizes) não precisam be selecionados para essa manipulação simultânea.
+
+O código deve identificar a "família" dos ThumbTemplates e ThumbPrizes para aplicar a manipulação simultânea.
+
+O texto interno dos ThumbTemplates e ThumbPrizes não é afetado simultaneamente durante o escalonamento (cada ThumbTemplate/ThumbPrize mantém seu próprio texto).
+
+Suporte Multilíngue:
+
+Sistema para gerenciar traduções entre diferentes idiomas (ENG, ESP, POR).
+
+As traduções serão salvas em um JSON na base do aplicativo.
+
+Frames com Arredondamento:
+
+Possibilidade de adicionar frames com cantos arredondados (controlado pelo horizontalSlider1).
+
+Controle de Alinhamento de Texto:
+
+Para cada idioma, o alinhamento é o mesmo e deve be salvo para todos os idiomas.
+
+Save/Load de Estados:
+
+Funcionalidade para salvar e carregar o estado da tela automaticamente no JSON.
+
+Os dados devem be recuperados ao reiniciar o aplicativo.
+
+Design Geral:
+
+O tema visual não é relevante nesta primeira etapa.
+
+10. Sobre a Implementação e Estrutura do Projeto
+
+Reutilização da UI Existente:
+
+A UI atual, que está 90% pronta, será reutilizada.
+
+A UI inclui todos os controles listados na seção "Sobre a Interface do Usuário", com os seguintes controles adicionais a serem implementados:
+
+pushButton (nome a definir, "Send to Back"): Envia o elemento selecionado para o fundo (menor z-order).
+
+pushButton (nome a definir, "Bring to Front"): Traz o elemento selecionado para a frente (maior z-order).
+
+pushButton (nome a definir, "Formato de Tela"): Permite alternar entre os formatos de tela (1920x1080, 1080x1920, 1080x960).
+
+pushButton (nome a definir, "Hold"): Marca um formato como editado para exportação.
+
+pushButton (nome a definir, "+"): Abre uma janela para adicionar novos idiomas ao stack de idiomas ativos.
+
+QComboBox (nome a definir): Seleciona o formato de exportação ("PNG e JPEG", "PNG", "JPEG").
+
+horizontalSlider (nome a definir): Ajusta o espaçamento entre linhas dos textos selecionados.
+
+Outros botões podem be detectados como necessários durante a implementação.
+
+Código Central (help_system.py):
+
+O código central existente, chamado help_system.py, será reutilizado.
+
+Todas as conexões existentes no help_system.py serão removidas, deixando o código limpo para ser usado como o ponto central de conexão.
+
+Os novos blocos de código (competências) serão organizados em facades, e os facades serão conectados ao help_system.py.
+
+Estrutura de Conexão:
+
+Blocos de Competências: Cada competência (como gerenciamento de texto, imagens, traduções, etc.) será implementada em um módulo separado.
+
+Facades: Cada grupo de competências será encapsulado em um facade (por exemplo, TextFormattingFacade, ThumbTemplateFacade, etc.).
+
+Conexão com help_system.py: Os facades serão conectados ao help_system.py, que coordenará as interações entre os facades e a UI.
+
+Estrutura de Pastas:
+
+A estrutura de pastas existente será mantida, conforme as imagens fornecidas:
+
+Runner_v5/
+
+├── .git/
+
+├── .qtcreator/
+
+├── .ropeproject/
+
+├── __pycache__/
+
+├── backup/
+
+├── components/
+
+├── data/
+
+│   ├── widgets/
+
+│   │   ├── help_system/
+
+│   │   │   ├── __pycache__/
+
+│   │   │   ├── module2/                      # Novos blocos de código e facades
+
+│   │   │   │   ├── text_formatting_facade.py
+
+│   │   │   │   ├── thumb_template_facade.py
+
+│   │   │   │   ├── scene_facade.py
+
+│   │   │   │   ├── translation_facade.py
+
+│   │   │   │   ├── persistence_facade.py
+
+│   │   │   │   ├── export_facade.py
+
+│   │   │   │   ├── text_item_manager.py
+
+│   │   │   │   ├── image_item_manager.py
+
+│   │   │   │   ├── thumb_template_manager.py
+
+│   │   │   │   ├── scene_manager.py
+
+│   │   │   │   ├── translation_manager.py
+
+│   │   │   │   ├── persistence_manager.py
+
+│   │   │   │   ├── export_manager.py
+
+│   │   │   │   └── __init__.py
+
+│   │   │   ├── utils/
+
+│   │   │   │   └── (outros arquivos de utilidade)
+
+│   │   │   ├── __init__.py
+
+│   │   │   ├── help_system.py              # Código central (limpo)
+
+│   │   │   ├── help_system.ui              # Arquivo UI do Qt Designer
+
+│   │   │   └── ui_help_system.py           # Código gerado pelo Qt Designer
+
+├── docs/
+
+├── resources/
+
+│   ├── pj_00/
+
+│   │   ├── g00/
+
+│   │   │   ├── _master/
+
+│   │   │   │   ├── generative/
+
+│   │   │   │   │   ├── animations/
+
+│   │   │   │   │   │   ├── symbols/
+
+│   │   │   │   │   │   │   ├── p01/anim/
+
+│   │   │   │   │   │   │   ├── p02/anim/
+
+│   │   │   │   │   │   │   ├── p03/anim/
+
+│   │   │   │   │   │   │   ├── ... (até p19)
+
+│   │   │   │   │   │   │   ├── p20_extra1/anim/
+
+│   │   │   │   │   │   │   └── p21_extra2/anim/
+
+│   │   │   │   └── system/
+
+│   │   │   │       └── data/
+
+│   │   │   │           ├── workspace_state.json      # Estado das telas
+
+│   │   │   │           ├── workspace_state.json.bak  # Backup do estado das telas
+
+│   │   │   │           ├── translations.json         # Traduções
+
+│   │   │   │           ├── translations.json.bak     # Backup das traduções
+
+│   │   │   │           ├── thumb_templates_state.json
+
+│   │   │   │           ├── thumb_templates_state.json.bak
+
+│   │   │   │           ├── deleted_thumb_templates.json
+
+│   │   │   │           ├── background_color.json
+
+│   │   │   │           └── background_color.json.bak
+
+│   │   │   ├── helps_png/                            # Exportações PNG
+
+│   │   │   └── helps_jpeg/                           # Exportações JPEG
+
+├── settings/
+
+└── spine-viewer/
+
+Planejamento da Nova Arquitetura (Atualizado)
+
+Com base no relatório geral atualizado, aqui está o novo planejamento para a implementação do editor, com os endereços de pastas corrigidos e todas as correções aplicadas.
+
+Arquitetura Proposta
+
+Componentes Principais:
+
+HelpSystem (data/widgets/help_system/help_system.py):
+
+Responsabilidade: Atuar como o ponto central de conexão, coordenando as interações entre a UI e os facades.
+
+Exemplo: HelpSystem.on_pushButton1_clicked(), HelpSystem.on_language_changed().
+
+TextFormattingFacade (data/widgets/help_system/module2/text_formatting_facade.py):
+
+Responsabilidade: Gerenciar todas as operações relacionadas à formatação de texto (negrito, itálico, sublinhado, cor, alinhamento, espaçamento entre linhas, etc.).
+
+Exemplo: TextFormattingFacade.set_bold(item_id, bold), TextFormattingFacade.set_color(item_id, color).
+
+ThumbTemplateFacade (data/widgets/help_system/module2/thumb_template_facade.py):
+
+Responsabilidade: Gerenciar a criação, manipulação e escalonamento simultâneo dos ThumbTemplates e ThumbPrizes.
+
+Exemplo: ThumbTemplateFacade.create_template(), ThumbTemplateFacade.create_prizes(start, end).
+
+SceneFacade (data/widgets/help_system/module2/scene_facade.py):
+
+Responsabilidade: Gerenciar a cena gráfica (QGraphicsView e QGraphicsScene), incluindo eventos de interação (arrastar e soltar, redimensionamento, seleção múltipla) e ferramentas visuais (réguas, snap ao grid).
+
+Exemplo: SceneFacade.add_item(item), SceneFacade.toggle_rulers().
+
+TranslationFacade (data/widgets/help_system/module2/translation_facade.py):
+
+Responsabilidade: Gerenciar traduções de texto em múltiplos idiomas, incluindo integração com APIs de IA.
+
+Exemplo: TranslationFacade.set_language(language), TranslationFacade.translate(text, language).
+
+PersistenceFacade (data/widgets/help_system/module2/persistence_facade.py):
+
+Responsabilidade: Serializar e desserializar o estado do editor (layouts, traduções, configurações) em arquivos JSON.
+
+Exemplo: PersistenceFacade.save_state(), PersistenceFacade.load_state().
+
+ExportFacade (data/widgets/help_system/module2/export_facade.py):
+
+Responsabilidade: Gerenciar a exportação das telas em PNG e JPEG.
+
+Exemplo: ExportFacade.export_pages(format, pages).
+
+Blocos de Competências (em data/widgets/help_system/module2/):
+
+TextItemManager (data/widgets/help_system/module2/text_item_manager.py):
+
+Responsabilidade: Gerenciar o estado dos itens de texto (posição, cor, alinhamento, formatação, espaçamento entre linhas, etc.).
+
+Usado por: TextFormattingFacade.
+
+ImageItemManager (data/widgets/help_system/module2/image_item_manager.py):
+
+Responsabilidade: Gerenciar o estado das imagens (posição, escala, z-order, etc.).
+
+Usado por: ThumbTemplateFacade, SceneFacade.
+
+ThumbTemplateManager (data/widgets/help_system/module2/thumb_template_manager.py):
+
+Responsabilidade: Gerenciar os ThumbTemplates e ThumbPrizes (criação, escalonamento simultâneo, carregamento de imagens, etc.).
+
+Usado por: ThumbTemplateFacade.
+
+SceneManager (data/widgets/help_system/module2/scene_manager.py):
+
+Responsabilidade: Gerenciar a cena gráfica e eventos de interação.
+
+Usado por: SceneFacade.
+
+TranslationManager (data/widgets/help_system/module2/translation_manager.py):
+
+Responsabilidade: Gerenciar traduções e integração com APIs de IA.
+
+Usado por: TranslationFacade.
+
+PersistenceManager (data/widgets/help_system/module2/persistence_manager.py):
+
+Responsabilidade: Gerenciar a serialização e desserialização do estado.
+
+Usado por: PersistenceFacade.
+
+ExportManager (data/widgets/help_system/module2/export_manager.py):
+
+Responsabilidade: Gerenciar a exportação das telas.
+
+Usado por: ExportFacade.
+
+Planejamento Passo a Passo:
+
+Passo 1: Limpeza do help_system.py e Configuração Inicial
+
+Limpar o help_system.py, removendo todas as conexões existentes e preparando-o para ser o ponto central de conexão.
+
+Configurar a estrutura de pastas em data/widgets/help_system/module2/.
+
+Teste: Abrir o aplicativo e verificar se a UI existente é exibida corretamente, sem erros.
+
+Passo 2: Implementar o TextItemManager, ImageItemManager e SceneManager
+
+Criar as classes TextItemManager, ImageItemManager e SceneManager em module2/.
+
+Teste: Adicionar um item de texto e uma imagem à cena, mover e redimensionar os itens, e verificar se a seleção múltipla funciona.
+
+Passo 3: Implementar o ThumbTemplateManager
+
+Criar o ThumbTemplateManager em module2/ para gerenciar os ThumbTemplates e ThumbPrizes.
+
+Teste: Criar um ThumbTemplate, duplicar para criar ThumbPrizes, escalonar simultaneamente, e verificar se as imagens são carregadas corretamente.
+
+Passo 4: Implementar os Facades
+
+Criar os facades (TextFormattingFacade, ThumbTemplateFacade, SceneFacade, TranslationFacade, PersistenceFacade, ExportFacade) em module2/.
+
+Conectar os facades ao help_system.py.
+
+Teste: Usar os facades para criar e manipular textos, imagens e ThumbPrizes através do help_system.py.
+
+Passo 5: Conectar a UI aos Facades
+
+Conectar os controles da UI (botões, comboboxes, sliders) aos métodos dos facades através do help_system.py.
+
+Teste: Clicar nos botões da UI e verificar se as ações correspondentes (como aplicar negrito, criar ThumbPrizes, mudar idioma) funcionam corretamente.
+
+Passo 6: Implementar Ferramentas Visuais
+
+Implementar as réguas e o snap ao grid no SceneManager.
+
+Teste: Ativar as réguas, puxar linhas tracejadas, e verificar se o snap ao grid funciona.
+
+Passo 7: Implementar Persistência
+
+Implementar o PersistenceManager para salvar e carregar o estado do editor.
+
+Teste: Salvar o estado, fechar o aplicativo, reabrir e verificar se os textos, imagens, ThumbPrizes, réguas e idioma são restaurados corretamente.
+
+Passo 8: Implementar Suporte a Múltiplos Idiomas
+
+Implementar o TranslationManager com integração com a Google Cloud Translation API.
+
+Teste: Trocar o idioma, verificar se os textos são traduzidos automaticamente e salvos no JSON.
+
+Passo 9: Implementar Exportação
+
+Implementar o ExportManager para exportar as telas em PNG e JPEG.
+
+Teste: Exportar páginas em diferentes formatos e verificar se os arquivos são gerados corretamente nas pastas helps_png e helps_jpeg.
+
+Passo 10: Refinamento e Testes Finais
+
+Adicionar quaisquer botões ou funcionalidades detectadas durante a implementação.
+
+Teste: Executar testes completos para todas as funcionalidades, garantindo que o editor atenda a todos os requisitos.
+
+Próximos Passos
+
+O relatório geral e o planejamento foram atualizados com todos os endereços de pastas corrigidos e as informações consolidadas. Agora, você pode revisar o relatório e o planejamento com calma, organizar as informações conforme necessário, e me avisar quando estiver pronto para retomar a implementação.
+
+Quando você estiver pronto, podemos começar novamente do Passo 1: Limpeza do help_system.py e Configuração Inicial, e seguiremos passo a passo com a implementação dos códigos. Estou à disposição para aguardar o tempo que precisar! 
+
+Se houver mais ajustes ou informações para adicionar, é só me avisar. Caso contrário, fico aguardando seu retorno para iniciarmos a implementação.
